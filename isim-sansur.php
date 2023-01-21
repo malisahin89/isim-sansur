@@ -3,25 +3,16 @@
 // https://www.linkedin.com/in/muhammetalisahin/
 // bilisimarsivi.com
 
-echo $gelen='Muhammet Ali ŞAHİN';
-echo '<br/>';
-echo sansur($gelen);
-
-function sansur($isim){
-    $tam=[];
-    $dizi=explode(' ',$isim);
-    foreach ($dizi as $key => $value) {
-        $yildiz=mb_strlen($value)-2;
-        $yildizlar=[];
-        for ($i=1; $i <=$yildiz ; $i++) { 
-            array_push($yildizlar,'*');
-        }
-        $yildiz=implode('',$yildizlar);
-        $ilk =mb_substr($value , 0 , 2);
-        array_push($tam, $ilk.$yildiz);
+function censorName(string $name) :string
+{
+    $nameArray = explode(' ', $name);
+    $censoredName = '';
+    foreach ($nameArray as $word) {
+        $censoredName .= mb_substr($word, 0, 2) . str_repeat('*', mb_strlen($word) - 2) . ' ';
     }
-    return implode(' ',$tam);
+    return trim($censoredName);
 }
 
-
+$name = 'Muhammet Ali ŞAHİN';
+echo censorName($name);
 ?>
